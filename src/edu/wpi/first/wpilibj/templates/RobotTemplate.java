@@ -12,42 +12,52 @@ import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
-import java.lang.*;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class RobotTemplate extends SimpleRobot {
     
-    RobotDrive chassis = new RobotDrive(2, 1);
-    Joystick rightStick = new Joystick(2);
-    Joystick leftStick = new Joystick(1);
-    //double rAxis = rightStick.getRawAxis(1);
+    RobotDrive chassis = new RobotDrive(5, 2, 3, 4);
+    Joystick gamepad = new Joystick(1);
+    Button button5 = new JoystickButton(gamepad, 5), 
+            button4 = new JoystickButton(gamepad, 4);
+    //Joystick rightStick = new Joystick(2);
+    //Joystick leftStick = new Joystick(1);
     
    
-    /*public void autonomous() {
-        chassis.setSafetyEnabled(false);
+    public void autonomous() {
+       /* chassis.setSafetyEnabled(false);
         chassis.drive(-.5, 0.0);
         Timer.delay(2.0);
-        chassis.drive(0.0, 0.0);
-    }*/
+        chassis.drive(0.0, 0.0);*/
+    }
 
         public void operatorControl() {
-        
-        chassis.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+        int x = 0;
+        //chassis.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
         while(isOperatorControl() && isEnabled()){
-            //chassis.arcadeDrive(rightStick, true);
-        double rightS = rightStick.getRawAxis(2);
-        double leftS = leftStick.getRawAxis(2);
-        rightS = Math.abs(rightS) * rightS;
-        leftS = Math.abs(leftS) * leftS;
-        
-        // ATTN:   IF the robot doesn't work, comment out these 3 lines
-        //This (should) enable the third axis(the switch on the back middle) to control acceleration of the robot
-        double z = rightStick.getZ()+1;
-        z/=2;
-        rightS*=z;
-        leftS*=z;
-        
-            //chassis.arcadeDrive(rightS);
+            
+            
+            /*
+            double rightS = rightStick.getRawAxis(2);
+            double leftS = leftStick.getRawAxis(2);
+            rightS = Math.abs(rightS) * rightS;
+            leftS = Math.abs(leftS) * leftS;
+            
             chassis.tankDrive(leftS, rightS, true);
+            */     
+            /*double[] speed = {.2, .4, .6, .8, 1};
+            
+            if(gamepad.getRawButton(4)){
+                x++;
+                if(x > 4)
+                    x = 0;
+            } */
+            double axisL = gamepad.getRawAxis(2)/2;
+            double axisR = gamepad.getRawAxis(4)/2;
+            
+            
+            chassis.arcadeDrive(axisL, axisR, true);
             Timer.delay(0.005);
         }
     }

@@ -15,104 +15,64 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Jaguar;
 
-public class RobotTemplate extends SimpleRobot {
-    int location = 0;
-    
+public class RobotTemplate extends SimpleRobot { 
     DigitalInput limitSwitch1 = new DigitalInput(1);
-    DigitalInput limitSwitch2 = new DigitalInput(2);
-    DigitalInput limitSwitch3 = new DigitalInput(3);
     
     RobotDrive chassis = new RobotDrive(1, 2, 3, 4);
     Joystick gamepad = new Joystick(1);
+    Joystick stick = new Joystick(2);
     
     Jaguar wheelJag = new Jaguar(5); 
-    Jaguar armJag = new Jaguar(6);
-    
+    Jaguar armJag = new Jaguar(6); 
    
     public void autonomous() {
         chassis.setSafetyEnabled(false);
         chassis.drive(-.17, 0.0);
-        Timer.delay(4.0);
+        Timer.delay(4.5);
         chassis.drive(0.0, 0.0);
+        wheelJag.set(.65);
+        Timer.delay(4.0);
+        wheelJag.set(0);
     }
 
     public void operatorControl() {
-        if(gamepad.getRawButton(1)) //Button A
-            readyBall();
-        if(gamepad.getRawButton(2)) //Button B
-            returnBall();
-        if(gamepad.getRawButton(3)) //Button X
-            pickupBall();
-        if(gamepad.getRawButton(4)) //Button Y
-            catchBall();
-        if(gamepad.getRawButton(6)) //Button RB
-            stopArm();            
-            
-        //chassis.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
         while(isOperatorControl() && isEnabled()){
             
             
             //Right Handed
-            double axisL = gamepad.getRawAxis(2)*.4;
-            double axisR = gamepad.getRawAxis(4)*.3;
+            double speedControl = stick.getZ();
+            speedControl++;
+            speedControl/=2;
+            double axisY = gamepad.getRawAxis(2)*speedControl;
+            double axisX = gamepad.getRawAxis(4)*speedControl;
+            double axisZ;
+            if(stick.getRawButton(2))
+                axisZ = stick.getY()*.3;
+            else
+                axisZ = stick.getY()*.2;
             
             //Left Handed
             //double axisL = gamepad.getRawAxis(1)*.3;
             //double axisR = gamepad.getRawAxis(5)*.4;
             
+            if(stick.getRawButton(1)&&stick.getRawButton(5))
+                wheelJag.set(-.75);
+            else if (stick.getRawButton(3)&&stick.getRawButton(5))
+                wheelJag.set(.75);
+            else if(stick.getRawButton(1)) //Button B
+                wheelJag.set(-.65);
+            else if(stick.getRawButton(3)) //Button X
+                wheelJag.set(.65);
+            else
+                wheelJag.set(0);
             
-            chassis.arcadeDrive(axisR, axisL, true);
+            if(!limitSwitch1.get() && axisZ > 0)
+                armJag.set(0);
+            else
+                armJag.set(axisZ);
+            
+            chassis.arcadeDrive(axisY, axisX, true);
             Timer.delay(0.005);
         }
-    }
-    //Neg values for away from robot, pos for torward
-    private void readyBall(){        
-        catchBall();
-        wheelJag.set(0);
-    }   
-    
-    private void returnBall(){
-        while(!limitSwitch1.get())
-            armJag.set(.5);
-        wheelJag.set(-.5);
-        Timer.delay(.5);
-        while(!limitSwitch2.get())
-            armJag.set(-.5);
-        armJag.set(0);
-        readyBall();
-    }
-    
-    private void pickupBall(){
-        wheelJag.set(.5);
-        while(!limitSwitch3.get())
-            armJag.set(.5);
-        Timer.delay(2);
-        while(!limitSwitch2.get())
-            armJag.set(-.5);
-        armJag.set(0);
-        location = 2;
-    }
-    
-    private void catchBall(){
-        wheelJag.set(-.5);
-        while(!limitSwitch2.get()){
-            if(location == 3)            
-                armJag.set(.5);
-            if(location == 1)
-                armJag.set(-.5);
-        }
-        armJag.set(0);            
-        location = 2;
-    }
-    
-    private void stopArm(){
-        while(!limitSwitch1.get())
-            armJag.set(-.5);
-        armJag.set(0);
-        wheelJag.set(0);
-        location = 1;
-    }
-    public void test() {
-    
     }
 }

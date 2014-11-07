@@ -8,7 +8,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 
-import eddsafjaslkdfju.wpi.first.wpilibj.SimpleRobot;
+import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.Jaguar;
 public class RobotTemplate extends SimpleRobot { 
     DigitalInput limitSwitch1 = new DigitalInput(1);
     
-    RobotDrive chassis = new RobotDrive(1, 2, 3, 4);
+    RobotDrive chassis = new RobotDrive(1, 2, 3, 5);
     Joystick gamepad = new Joystick(1);
     Joystick stick = new Joystick(2);
     

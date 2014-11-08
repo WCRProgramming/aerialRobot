@@ -23,7 +23,7 @@ public class RobotTemplate extends SimpleRobot {
     Joystick stick = new Joystick(2);
     
     Jaguar wheelJag = new Jaguar(5); 
-    Jaguar armJag = new Jaguar(6); 
+    Jaguar armJag = new Jaguar(7); 
    
     public void autonomous() {
         chassis.setSafetyEnabled(false);

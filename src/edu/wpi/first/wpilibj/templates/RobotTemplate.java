@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.Jaguar;
 public class RobotTemplate extends SimpleRobot { 
     DigitalInput limitSwitch1 = new DigitalInput(1);
     
-    RobotDrive chassis = new RobotDrive(1, 2, 3, 5);
+    RobotDrive chassis = new RobotDrive(1, 2, 3, 4);
     Joystick gamepad = new Joystick(1);
     Joystick stick = new Joystick(2);
     

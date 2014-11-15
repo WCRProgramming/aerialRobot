@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class RobotTemplate extends SimpleRobot {
     
     RobotDrive chassis = new RobotDrive(2, 1);
+    //For Gamepad + Joystick setups
     Joystick rightStick = new Joystick(2);
     Joystick leftStick = new Joystick(1);
     //double rAxis = rightStick.getRawAxis(1);
@@ -45,9 +46,9 @@ public class RobotTemplate extends SimpleRobot {
         rightS*=z;
         leftS*=z;
         
-            //chassis.arcadeDrive(rightS);
-            chassis.tankDrive(leftS, rightS, true);
-            Timer.delay(0.005);
+        //chassis.arcadeDrive(rightS);
+        chassis.tankDrive(leftS, rightS, true);
+        Timer.delay(0.005);
         }
     }
   

@@ -19,8 +19,13 @@ public class RobotTemplate extends SimpleRobot {
     DigitalInput limitSwitch1 = new DigitalInput(1);
     
     RobotDrive chassis = new RobotDrive(1, 2, 3, 4);
-    Joystick gamepad = new Joystick(1);
-    Joystick stick = new Joystick(2);
+    //Gamepad + Joystick = arcadeDrive
+    Joystick leftStick = new Joystick(1);
+    Joystick rightStick = new Joystick(2);
+    //Joystick + Joystick = tankDrive
+    //Joystick + Joystick = arcadeDrive
+    //Joystick = arcadeDrives
+    //Joystick rightStick = new Joystick(1);
     
     Jaguar wheelJag = new Jaguar(5); 
     Jaguar armJag = new Jaguar(6); 

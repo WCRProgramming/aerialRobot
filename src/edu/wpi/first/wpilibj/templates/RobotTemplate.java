@@ -19,13 +19,8 @@ public class RobotTemplate extends SimpleRobot {
     DigitalInput limitSwitch1 = new DigitalInput(1);
     
     RobotDrive chassis = new RobotDrive(1, 2, 3, 4);
-    //Gamepad + Joystick = arcadeDrive
-    Joystick leftStick = new Joystick(1);
-    Joystick rightStick = new Joystick(2);
-    //Joystick + Joystick = tankDrive
-    //Joystick + Joystick = arcadeDrive
-    //Joystick = arcadeDrives
-    //Joystick rightStick = new Joystick(1);
+    Joystick gamepad = new Joystick(1);
+    Joystick stick = new Joystick(2);
     
     Jaguar wheelJag = new Jaguar(5); 
     Jaguar armJag = new Jaguar(6); 
@@ -60,10 +55,7 @@ public class RobotTemplate extends SimpleRobot {
             //double axisL = gamepad.getRawAxis(1)*.3;
             //double axisR = gamepad.getRawAxis(5)*.4;
             
-            if(stick.getRawButton(1)&&stick.getRawButton(5))
-                wheelJag.set(-.75);
-            else if (stick.getRawButton(3)&&stick.getRawButton(5))
-                wheelJag.set(.75);
+            
             else if(stick.getRawButton(1)) //Button B
                 wheelJag.set(-.65);
             else if(stick.getRawButton(3)) //Button X
